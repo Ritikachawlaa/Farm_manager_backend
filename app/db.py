@@ -3,8 +3,17 @@ import boto3
 import os
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError
 
+# --- ADDED S3 CONFIGURATION ---
+S3_BUCKET_NAME = "agriscale-photo-upload-um7riwja" # <<< Use your unique name
+AWS_REGION = 'us-east-1' # <<< Use the region provided
+# --
+
 # Attempt to get credentials from environment variables
 try:
+    # Boto3 will now use the region_name provided in the environment/config
+    dynamodb_resource = boto3.resource('dynamodb', region_name=AWS_REGION) # <<< ADDED region_name
+    print("Successfully created DynamoDB resource.")
+    
     # Check if environment variables are set (optional check)
     if not all(os.getenv(key) for key in ['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_DEFAULT_REGION']):
          print("WARNING: AWS credentials environment variables not fully set. Boto3 might use other methods (e.g., ~/.aws/credentials).")

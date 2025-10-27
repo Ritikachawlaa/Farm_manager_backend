@@ -1,7 +1,7 @@
 # app/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import supervisors, tasks, inventory,plots
+from .routers import supervisors, tasks, inventory,plots,s3
 app = FastAPI(title="AgriScale Backend")
 
 # Define the URLs your frontend will run on
@@ -26,6 +26,7 @@ app.include_router(supervisors.router)
 app.include_router(tasks.router)
 app.include_router(inventory.router)
 app.include_router(plots.router)
+app.include_router(s3.router)
 
 @app.get("/")
 def read_root():
